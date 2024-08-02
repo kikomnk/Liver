@@ -196,7 +196,7 @@ public class Triangulator : MonoBehaviour
     }
     private void Update()
     {
-        ChangeCell();
+       // ChangeCell();
     }
     private void ChangeCell()
     {
@@ -208,7 +208,7 @@ public class Triangulator : MonoBehaviour
         // pøeøazení buòky do jiného seznamu
         if (indicies[1] == 0)
         {
-
+            
             Cell cell = Liver.LeftLobe.hepatotyteCells[indicies[0]];
 
             // odstranìní 
@@ -216,7 +216,7 @@ public class Triangulator : MonoBehaviour
 
 
             Liver.LeftLobe.ChangeCell(Cell.CellType.HEPATOCYTE, Cell.CellType.FAT, indicies[0]);
-
+            
 
         }
         else if (indicies[1] == 1)

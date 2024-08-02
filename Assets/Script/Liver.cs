@@ -23,22 +23,23 @@ public static class Liver
     {
         int[] indicies = new int[2];
         // vybrání z náhodného laloku
-        System.Random randomLobe = new System.Random();
-        int ileftRight = randomLobe.Next(0, 2);
+        System.Random random = new System.Random();
+        int ileftRight = random.Next(0, 2);
         bool leftRight = Convert.ToBoolean(ileftRight);
         // náhodnì vyberu lalok(0levý,1pravý)
         int index = 0;
-        System.Random randomCellIndex = new System.Random();
+        
         //dle vybraného laloku generuji index
 
         if (leftRight)
         {
 
-            index = randomCellIndex.Next(0, LeftLobe.GetCells(cellType).Count);
+            index = random.Next(0, LeftLobe.GetCells(cellType).Count);
+           
         }
         else
         {
-            index = randomCellIndex.Next(0, RightLobe.GetCells(cellType).Count);
+            index = random.Next(0, RightLobe.GetCells(cellType).Count);
         }
 
         indicies[0] = index;
