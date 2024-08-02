@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 494559013b671b146a8f2f3b8d472e7d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - <ObjectToSpawn>k__BackingField: {instanceID: 0}
+  - <Material>k__BackingField: {fileID: 2100000, guid: 129fc62a1c96dd54393158ae015a19fb, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
