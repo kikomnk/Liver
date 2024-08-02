@@ -1,18 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
 
 public abstract class LiverPart
 {
     public enum PartType { LOBE, VEIN };
-    
-    public List<Cell> cells;    
+
+    public List<Cell> cells = new();
     public LiverPart()
     {
 
     }
 
+    public virtual List<Cell> GetAllCells()
+    {
+        return cells;
+    }
     //public string getName() { return name; }
 
 

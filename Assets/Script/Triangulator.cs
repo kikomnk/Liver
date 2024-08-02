@@ -132,71 +132,44 @@ public class Triangulator : MonoBehaviour
         CellTriangle = new CellTriangle(Material, transform, GameLiverPart.tag);
         Cell cell;
         // projití všek buòek v LiverPart a jejich vykreslení
+        LiverPart part = null;
         switch (activeLiverPart)
         {
             case (ActiveLiverPart.LL):
-                for (int i = 0; i < Liver.LeftLobe.GetAllCells().Count; i++)
-                {
-                    cell = Liver.LeftLobe.GetAllCells()[i];
-                    // oøiøazení do Buòky GameObject trojúhelník
-                    CellTriangle.SetCell(cell);
-                    CellTriangle.AddTriangleToScene(cell.GetPoints());
+                part = Liver.LeftLobe;
 
-
-                }
                 break;
             case (ActiveLiverPart.RL):
-                for (int i = 0; i < Liver.RightLobe.GetAllCells().Count; i++)
-                {
+                part = Liver.RightLobe;
 
-                    cell = Liver.RightLobe.GetAllCells()[i];
-                    CellTriangle.SetCell(cell);
-                    CellTriangle.AddTriangleToScene(cell.GetPoints());
-
-                }
                 break;
             case (ActiveLiverPart.VC):
-                for (int i = 0; i < Liver.VenaCanva.GetAllCells().Count; i++)
-                {
+                part = Liver.VenaCanva;
 
-                    cell = Liver.VenaCanva.GetAllCells()[i];
-                    CellTriangle.SetCell(cell);
-                    CellTriangle.AddTriangleToScene(cell.GetPoints());
-
-                }
                 break;
             case (ActiveLiverPart.HP):
-                for (int i = 0; i < Liver.HepaticPortal.GetAllCells().Count; i++)
-                {
+                part = Liver.HepaticPortal;
 
-                    cell = Liver.HepaticPortal.GetAllCells()[i];
-                    CellTriangle.SetCell(cell);
-                    CellTriangle.AddTriangleToScene(cell.GetPoints());
-
-                }
                 break;
             case (ActiveLiverPart.PV):
-                for (int i = 0; i < Liver.PortalVein.GetAllCells().Count; i++)
-                {
-
-                    cell = Liver.PortalVein.GetAllCells()[i];
-                    CellTriangle.SetCell(cell);
-                    CellTriangle.AddTriangleToScene(cell.GetPoints());
-
-                }
+                part = Liver.PortalVein;
                 break;
+
             default:
                 Debug.LogError("Nejsou nastavené èásti jater èi špatný název");
                 break;
-
         }
 
-
-
+        for (int i = 0; i < part.GetAllCells().Count; i++)
+        {
+            cell = part.GetAllCells()[i];
+            CellTriangle.SetCell(cell);
+            CellTriangle.AddTriangleToScene(cell.GetPoints());
+        }
     }
     private void Update()
     {
-       // ChangeCell();
+        ChangeCell();
     }
     private void ChangeCell()
     {
@@ -208,24 +181,18 @@ public class Triangulator : MonoBehaviour
         // pøeøazení buòky do jiného seznamu
         if (indicies[1] == 0)
         {
-            
             Cell cell = Liver.LeftLobe.hepatotyteCells[indicies[0]];
 
             // odstranìní 
             CellTriangle.RemoveTriangleFromScene(cell);
 
-
             Liver.LeftLobe.ChangeCell(Cell.CellType.HEPATOCYTE, Cell.CellType.FAT, indicies[0]);
-            
-
         }
         else if (indicies[1] == 1)
         {
             Cell cell = Liver.RightLobe.hepatotyteCells[indicies[0]];
             CellTriangle.RemoveTriangleFromScene(cell);
             Liver.RightLobe.ChangeCell(Cell.CellType.HEPATOCYTE, Cell.CellType.FAT, indicies[0]);
-
-
         }
         //CellTriangle = new CellTriangle(Mesh, Material, transform, GameLiverPart.tag);
 

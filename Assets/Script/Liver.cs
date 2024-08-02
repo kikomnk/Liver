@@ -31,7 +31,7 @@ public static class Liver
         
         //dle vybraného laloku generuji index
 
-        if (leftRight)
+        if (!leftRight)
         {
 
             index = random.Next(0, LeftLobe.GetCells(cellType).Count);

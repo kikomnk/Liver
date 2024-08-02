@@ -16,7 +16,7 @@ public class VeinLiverPart : LiverPart
     {
         veinCells = new List<Cell>();
     }
-    public List<Cell> GetAllCells()
+    public override List<Cell> GetAllCells()
     {       
         return veinCells;
     }

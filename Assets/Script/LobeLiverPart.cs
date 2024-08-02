@@ -20,7 +20,7 @@ public class LobeLiverPart : LiverPart
     }
 
     //vrácení všech buòìk v LiverPart
-    public List<Cell> GetAllCells()
+    public override List<Cell> GetAllCells()
     {
         // seètení všech typù bunìk
         List<Cell> allCell = new List<Cell>();
