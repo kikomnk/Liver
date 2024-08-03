@@ -7,28 +7,27 @@ using UnityEngine;
 public class Cell 
 {    
     // možnosti v jakém mùže být buòka stavu. základní je Hepatocyte
-    public enum CellType {HEPATOCYTE,DAMAGEDHEPATOCYTE,FAT,FIBROSIS,CIRHOSIS }
+    public enum CellType {HEPATOCYTE,FAT, DAMAGEDHEPATOCYTE, FIBROSIS,CIRHOSIS }
     private CellType celltype = CellType.HEPATOCYTE;
     //body Buòky( reprezentována trojúhelníkem)
     private Vector3[] points= new Vector3[2];
     private GameObject triangle;
 
-    private Material material;
-    public Cell(Vector3[] points,Material material)
+    public Cell(Vector3[] points)
     {
         this.points = points;
-        this.material = material;
+        
        
     }
-    public Material GetMaterial() { return material; }
-    public void SetMaterial(Material material) { this.material = material; }
+
 
     public Vector3[] GetPoints() { return points; }
     public GameObject GetTriangle() { return triangle; }
     public void SetTriangle(GameObject triangle) {  this.triangle = triangle; }
     public void SetTriangleMaterial(Material material) 
-    { 
-        //triangle.     
+    {
+        var material2 = triangle.GetComponent<Renderer>();   
+        material2.material = material;
     }
 
     // public GameObject GetLiverPart() { return liverPart; }

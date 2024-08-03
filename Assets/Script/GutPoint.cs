@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GutPoint
+public class GutPoint : MonoBehaviour
 {
     
     // Tato tøída uchovává vlastnosti krve ze støev a generuje ji

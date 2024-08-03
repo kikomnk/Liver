@@ -15,6 +15,6 @@ public class MainScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Liver.UseOxygen(); 
     }
 }

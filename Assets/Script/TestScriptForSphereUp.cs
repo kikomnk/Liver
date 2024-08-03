@@ -8,8 +8,8 @@ public class TestScriptForSphereUp : MonoBehaviour
     [field: SerializeField] GameObject sphere;
     // hodnoty krve(kyslík,alkohol)
     private float oxygen, alcohol;
-    // vektor pùjde
-    private Vector3 velocity, gravityPull;
+    // vektor smìr a ocecný smìr( gravitace/smìr tlaku krve)
+    private Vector3 velocity, flowForce;
     public Rigidbody rb;
     CellTriangle CellTriangle;
 
@@ -61,7 +61,7 @@ public class TestScriptForSphereUp : MonoBehaviour
     private void TransferProperties()
     {
         Liver.AddOxygen(oxygen/100);
-        Liver.AddAlcohol(alcohol/100);
+        
         if (oxygen <= 0 && alcohol <= 0)
         {
             Destroy(sphere);

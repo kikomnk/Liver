@@ -4,7 +4,7 @@ using UnityEngine;
 public static class Liver
 {
     // vlastnosti Jater v procentech
-    private static float oxygen = 100f, alcohol = 0f;
+    private static float oxygen = 100f;
     // propustnost dle zdravosti jater
     private static int transmisionRatio;
 
@@ -22,16 +22,16 @@ public static class Liver
     public static int[] GetRandomLobeCellIndiciesByType(Cell.CellType cellType)
     {
         int[] indicies = new int[2];
-        // vybrání z náhodného laloku
+        // vybrání z náhodného laloku, chceme radši pravý lalok(více buòek), tak bereme ze 3 èísel(1-3)  %2
         System.Random random = new System.Random();
-        int ileftRight = random.Next(0, 2);
-        bool leftRight = Convert.ToBoolean(ileftRight);
+        int leftRight = random.Next(1, 4) % 2;
+        
         // náhodnì vyberu lalok(0levý,1pravý)
-        int index = 0;
+        int index;
         
         //dle vybraného laloku generuji index
 
-        if (!leftRight)
+        if (leftRight == 0)
         {
 
             index = random.Next(0, LeftLobe.GetCells(cellType).Count);
@@ -43,7 +43,7 @@ public static class Liver
         }
 
         indicies[0] = index;
-        indicies[1] = ileftRight;
+        indicies[1] = leftRight;
         Debug.Log(LeftLobe.GetCells(Cell.CellType.HEPATOCYTE).Count + " + " + RightLobe.GetCells(Cell.CellType.HEPATOCYTE).Count);
         return indicies;
     }
@@ -53,12 +53,13 @@ public static class Liver
         return count;
 
     }
-    public static void AddOxygen(float oxygen) { Liver.oxygen += oxygen; }
-    public static void AddAlcohol(float alcohol) { Liver.alcohol += alcohol; }
+    public static void AddOxygen(float inOxygen) { oxygen += inOxygen; }
+    public static void UseOxygen() { oxygen = oxygen - 0.001f; }
+    public static float GetOxygen() { return Liver.oxygen; }
     public static void SetTransmisionRatio()
     {
         // projití lalokù a získání pomìru zdravých Buòek+poškozených buòek/ostatních buòek. poškozené buòky jsou za 0.5
-        // lobes.GetNOfCells();
+        //Liver.Get
 
 
     }

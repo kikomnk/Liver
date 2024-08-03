@@ -42,7 +42,7 @@ public class CellTriangle
         meshRenderer.material = material;
         
 
-        if (tag == "Left_Lobe" || tag == "Right_Lobe")
+        if (tag == "Lobe" )
         {
             triangle.tag = "Cell";
 
@@ -53,12 +53,11 @@ public class CellTriangle
     }
     public void RemoveTriangleFromScene(Cell cell)
     {
-        GameObject.Destroy(cell.GetTriangle());
+        // GameObject.Destroy(cell.GetTriangle());
+      //  cell.SetTriangleMaterial(material);
+
     }
-    public void SetTriangleMaterial(Material material)
-    {
-        this.material = material;
-    }
+
     /*
     private GameObject FindTriangle(Vector3[] vertices) 
     {
