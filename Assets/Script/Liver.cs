@@ -4,9 +4,12 @@ using UnityEngine;
 public static class Liver
 {
     // vlastnosti Jater v procentech
+    private static int old = 0;
     private static float oxygen = 100f;
+    private static float alcohol = 100f;
+    private static float health = 100f;
     // propustnost dle zdravosti jater
-    private static int transmisionRatio;
+    private static float transmisionRatio = 1f;
 
 
     public static List<LiverCell> hepatotyteCells = new List<LiverCell>();
@@ -26,7 +29,6 @@ public static class Liver
     public static int GetRandomLiverCellByType(LiverCell.CellType cellType)
     {
 
-        // vybrání z náhodného laloku, chceme radši pravý lalok(více buòek), tak bereme ze 3 èísel(1-3)  %2
         System.Random random = new System.Random();
 
 
@@ -36,23 +38,27 @@ public static class Liver
         Debug.Log(GetCells(LiverCell.CellType.HEPATOCYTE).Count);
         return index;
     }
-
+    // methods for age
+    public static void age() { old++; }
+    public static string GetAge() { return old.ToString(); }
+    //methods for oxygen
     public static void AddOxygen(float inOxygen) { oxygen += inOxygen; }
     public static void UseOxygen() { oxygen = oxygen - 0.01f; }
     public static float GetOxygen() { return Liver.oxygen; }
+    // methods for alcohol
     public static void Repair()
     {
         int index = GetRandomLiverCellByType(LiverCell.CellType.DAMAGEDHEPATOCYTE);
 
     }
+    public static void setHealth() 
+    {
+        health = 100f * (hepatotyteCells.Count + (damagedHepatotyteCells.Count / 2)) / (GetNOfCells() - veinCells.Count);
+    }
     public static void SetTransmisionRatio()
     {
-        // projití lalokù a získání pomìru zdravých Buòek+poškozených buòek/ostatních buòek. poškozené buòky jsou za 0.5
-        //Liver.Get
-
-
-
-        // System.Random Random = new System.Random();
+        transmisionRatio = health / 100f;
+          
     }
 
     //vrácení všech buòìk typu hepatocyte

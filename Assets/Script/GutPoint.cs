@@ -17,7 +17,7 @@ public class GutPoint : BloodGenerator
     }
     void Start()
     {
-        InvokeRepeating("GenerateNewCell", 1f, 1f);
+        InvokeRepeating("GenerateNewCell", 1f, 0.5f);
     }
     void Update()
     {

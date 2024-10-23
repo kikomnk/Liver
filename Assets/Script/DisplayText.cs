@@ -27,7 +27,7 @@ public class DisplayText : MonoBehaviour
         if (displayText != null)
         {
             displayText.text = "Játra: " + "\n  ";
-            displayText.text += "Dny: " + someValue++.ToString()+" \n  ";
+            displayText.text += "Dny: " + Liver.GetAge() + " \n  ";
             displayText.text += "Okyslyèení: " + Liver.GetOxygen().ToString() + "\n  ";
             displayText.text += "Poèet hepatocytù: " + Liver.GetCells(LiverCell.CellType.HEPATOCYTE).Count + "\n  ";
             displayText.text += "Poèet ztuènìných bunìk: " + Liver.GetCells(LiverCell.CellType.FAT).Count + "\n  ";

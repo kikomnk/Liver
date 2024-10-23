@@ -32,7 +32,7 @@ public class BloodCell : MonoBehaviour
 
     private void Update()
     {
-        velocity = rb.velocity;
+       //velocity = rb.velocity;
     }
 
     public void SetPosition(Vector3 position)
@@ -57,23 +57,23 @@ public class BloodCell : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Vein"))
         {
+            
             float speed = velocity.magnitude;
-            Vector3 direction = (this.transform.position - other.transform.position).normalized;
+            Vector3 direction = (other.transform.position - this.transform.position ).normalized;
             rb.velocity = direction * speed;
-            // poté prohodit if else
-            if (other.gameObject.CompareTag("Cell")) { TransferProperties(); }
-            else if (other.gameObject.CompareTag("Vein")) { }
+            
+            // TransferProperties();
         }
-            if (collider.gameObject.CompareTag("Cell")) { TransferProperties(); }
-            else if (collider.gameObject.CompareTag("Vein")) { }
-        }
+
+        
         bounces++;
         if (bounces == 5)
         { 
             //!!!!!! upravit pro pøemístìní v žilách
-            sphere.transform.position = Vector3.zero;
+           // this.transform.position = Vector3.zero;
         }
     }
+
 
     private void TransferProperties()
     {
