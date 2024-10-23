@@ -1,11 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GutPoint : BloodGenerator
 {
     [field: SerializeField] GameObject ThisObject;
+    [field: SerializeField] BloodCell prefab;
     BloodCell Bloodcell;
 
 
@@ -14,7 +12,7 @@ public class GutPoint : BloodGenerator
     private int alcohol = 0;
     public GutPoint()
     {
-        
+
 
     }
     void Start()
@@ -23,16 +21,17 @@ public class GutPoint : BloodGenerator
     }
     void Update()
     {
-        
-        
+
+
     }
     public void DrinkBeer()
     {
         alcohol += 10;
         Debug.Log(alcohol.ToString());
     }
-    void GenerateNewCell () { Bloodcell = new BloodCell(ThisObject.transform.position,alcohol ); }
-
-
-
+    void GenerateNewCell()
+    {
+        //Bloodcell = new BloodCell(ThisObject.transform.position, alcohol);
+        Bloodcell = Instantiate<BloodCell>(prefab, ThisObject.transform.position, Quaternion.identity);
+    }
 }

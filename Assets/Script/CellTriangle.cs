@@ -28,7 +28,6 @@ public class CellTriangle
         GameObject triangle = new GameObject("Triangle");
         triangle.transform.SetParent(transform);
         
-
         Mesh mesh = new Mesh();
         mesh.vertices = vertices;
         mesh.triangles = new int[] { 0, 1, 2 };
@@ -39,7 +38,10 @@ public class CellTriangle
 
         MeshRenderer meshRenderer = triangle.AddComponent<MeshRenderer>();
 
+        MeshCollider coll = triangle.AddComponent<MeshCollider>();
 
+        var body = triangle.AddComponent<Rigidbody>();
+        body.isKinematic = true;
 
         meshRenderer.material = material;
         
@@ -50,10 +52,6 @@ public class CellTriangle
 
         }
         else { triangle.tag = "Vein"; }
-        var collider = triangle.AddComponent<Rigidbody2D>();
-        collider.isKinematic = true;
-        var handler = triangle.AddComponent<CollisionHandler>();
-        //handler.OnCollisionDetected += collider
         cell.SetTriangle(triangle);
     }
     public void RemoveTriangleFromScene(LiverCell cell)
