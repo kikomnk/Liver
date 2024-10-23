@@ -9,6 +9,7 @@ public class BloodCell
     GameObject sphere;
     Rigidbody rb;
     Vector3 velocity;
+    int bounces;
     
 
     private void Start()
@@ -49,6 +50,7 @@ public class BloodCell
     }
     private void OnCollisionEnter(Collision collision)
     {
+           
         
     }
     private void OnTriggerEnter(Collider collider)
@@ -61,8 +63,13 @@ public class BloodCell
             // poté prohodit if else
             if (collider.gameObject.CompareTag("Cell")) { TransferProperties(); }
             else if (collider.gameObject.CompareTag("Vein")) { }
-        }   
-
+        }
+        bounces++;
+        if (bounces == 5)
+        { 
+            //!!!!!! upravit pro pøemístìní v žilách
+            sphere.transform.position = Vector3.zero;
+        }
     }
     
     private void TransferProperties()
@@ -71,7 +78,7 @@ public class BloodCell
 
         if (oxygen <= 0 && alcohol <= 0)
         {
-            //sphere.gameObject.
+            //sphere.gameObject.IsDestroyed();
         }
 
     }

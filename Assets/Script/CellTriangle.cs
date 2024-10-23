@@ -50,9 +50,12 @@ public class CellTriangle
 
         }
         else { triangle.tag = "Vein"; }
+        triangle.AddComponent<MeshCollider>();
+        /*
         var collider = triangle.AddComponent<Rigidbody2D>();
         collider.isKinematic = true;
         var handler = triangle.AddComponent<CollisionHandler>();
+        */
         //handler.OnCollisionDetected += collider
         cell.SetTriangle(triangle);
     }
