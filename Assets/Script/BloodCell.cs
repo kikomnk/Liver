@@ -13,7 +13,6 @@ public class BloodCell : MonoBehaviour
         var coll = GetComponent<Collider>();
         coll.isTrigger = true;
 
-        this.gameObject.tag = "Vein";
     }
 
     private void Start()

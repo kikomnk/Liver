@@ -33,5 +33,7 @@ public class GutPoint : BloodGenerator
     {
         //Bloodcell = new BloodCell(ThisObject.transform.position, alcohol);
         Bloodcell = Instantiate<BloodCell>(prefab, ThisObject.transform.position, Quaternion.identity);
+        Bloodcell.SetPosition(this.transform.position);
+        Bloodcell.SetAlcohol(alcohol);
     }
 }
