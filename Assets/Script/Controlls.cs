@@ -101,6 +101,7 @@ public class Controlls : MonoBehaviour
         }
             
     }
+
     private void ChangeCell()
     {
         // test method for changing cell     

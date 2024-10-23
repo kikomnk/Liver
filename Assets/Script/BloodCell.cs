@@ -1,20 +1,33 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class BloodCell
+public class BloodCell : MonoBehaviour
 {
     int oxygen = 15;
     int alcohol = 0;
-    GameObject sphere;
     Rigidbody rb;
     Vector3 velocity;
     int bounces;
     
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        var coll = GetComponent<Collider>();
+        coll.isTrigger = true;
+
+    }
+
     private void Start()
     {
+        System.Random random = new System.Random();
+        float xmove = ((float)random.Next(-100, 101)) / 100;
+        float zmove = ((float)random.Next(-100, 101)) / 100;
 
+        rb.AddForce(new Vector3(xmove, 4f, zmove), ForceMode.VelocityChange);
+        rb.useGravity = false;
+
+        var renderer = this.GetComponent<Renderer>();
+        renderer.material = Resources.Load("Materials/Blood") as Material;
     }
 
     private void Update()
@@ -22,45 +35,35 @@ public class BloodCell
         velocity = rb.velocity;
     }
 
-    public BloodCell(Vector3 position, int alcohol)
+    public void SetPosition(Vector3 position)
     {
-        sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = position;
-        
+        this.transform.position = position;
 
-        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+    }
 
-
-         // nastavení náhodého vektoru pro pohyb
-         System.Random random = new System.Random();
-         float xmove = ((float)random.Next(-100, 101))/100;
-         float zmove = ((float)random.Next(-100, 101))/100;
-
-
-        rb = sphere.AddComponent<Rigidbody>(); // Adds a Rigidbody component to the sphere
-        rb.AddForce(new Vector3(xmove, 4f, zmove), ForceMode.VelocityChange);
-        rb.useGravity = false;
-        var collider = sphere.GetComponent<Collider>();
-        collider.isTrigger = true;
-        //rb.AddForce(new Vector3(0, 2f, 0), ForceMode.VelocityChange);
-        var renderer = sphere.GetComponent<Renderer>();
-        renderer.material = Resources.Load("Materials/Blood") as Material;
-        
+    public void SetAlcohol(int alc)
+    {
 
     }
+
     private void OnCollisionEnter(Collision collision)
     {
            
         
     }
-    private void OnTriggerEnter(Collider collider)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collider.gameObject.CompareTag("Vein"))
+        if (other.gameObject.CompareTag("Vein"))
         {
             float speed = velocity.magnitude;
-            Vector3 direction = (sphere.transform.position - collider.transform.position).normalized;
+            Vector3 direction = (this.transform.position - other.transform.position).normalized;
             rb.velocity = direction * speed;
             // poté prohodit if else
+            if (other.gameObject.CompareTag("Cell")) { TransferProperties(); }
+            else if (other.gameObject.CompareTag("Vein")) { }
+        }
             if (collider.gameObject.CompareTag("Cell")) { TransferProperties(); }
             else if (collider.gameObject.CompareTag("Vein")) { }
         }
@@ -71,7 +74,7 @@ public class BloodCell
             sphere.transform.position = Vector3.zero;
         }
     }
-    
+
     private void TransferProperties()
     {
         Liver.AddOxygen(oxygen / 100);
