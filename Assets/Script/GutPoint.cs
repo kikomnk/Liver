@@ -3,28 +3,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GutPoint : MonoBehaviour
+public class GutPoint : BloodGenerator
 {
-    
+    [field: SerializeField] GameObject ThisObject;
+    BloodCell Bloodcell;
+
+
+
     // Tato tøída uchovává vlastnosti krve ze støev a generuje ji
-    private float alcohol = 0f;
+    private int alcohol = 0;
     public GutPoint()
     {
         
-    
+
     }
     void Start()
     {
-            
+        InvokeRepeating("GenerateNewCell", 1f, 1f);
     }
     void Update()
     {
         
+        
     }
     public void DrinkBeer()
     {
-        alcohol += 0.01f;
+        alcohol += 10;
         Debug.Log(alcohol.ToString());
     }
+    void GenerateNewCell () { Bloodcell = new BloodCell(ThisObject.transform.position,alcohol ); }
+
+
 
 }

@@ -11,7 +11,7 @@ public class TestScriptForSphereUp : MonoBehaviour
     // vektor smìr a ocecný smìr( gravitace/smìr tlaku krve)
     private Vector3 velocity, flowForce;
     public Rigidbody rb;
-    CellTriangle CellTriangle;
+
 
 
     void Start()

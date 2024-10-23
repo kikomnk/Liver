@@ -9,7 +9,7 @@ public class CellTriangle
     private Material material;
     private string tag;
     Transform transform;
-    Cell cell;
+    LiverCell cell;
 
     //private List<Vector3> verts;
 
@@ -21,12 +21,13 @@ public class CellTriangle
         this.transform = transform;  
       
     }
-    public void SetCell(Cell cell) { this.cell = cell; }
+    public void SetCell(LiverCell cell) { this.cell = cell; }
 
     public void AddTriangleToScene(Vector3[] vertices)
     {
         GameObject triangle = new GameObject("Triangle");
         triangle.transform.SetParent(transform);
+        
 
         Mesh mesh = new Mesh();
         mesh.vertices = vertices;
@@ -39,6 +40,7 @@ public class CellTriangle
         MeshRenderer meshRenderer = triangle.AddComponent<MeshRenderer>();
 
 
+
         meshRenderer.material = material;
         
 
@@ -48,10 +50,13 @@ public class CellTriangle
 
         }
         else { triangle.tag = "Vein"; }
-        triangle.AddComponent<MeshCollider>();
+        var collider = triangle.AddComponent<Rigidbody2D>();
+        collider.isKinematic = true;
+        var handler = triangle.AddComponent<CollisionHandler>();
+        //handler.OnCollisionDetected += collider
         cell.SetTriangle(triangle);
     }
-    public void RemoveTriangleFromScene(Cell cell)
+    public void RemoveTriangleFromScene(LiverCell cell)
     {
         // GameObject.Destroy(cell.GetTriangle());
       //  cell.SetTriangleMaterial(material);
