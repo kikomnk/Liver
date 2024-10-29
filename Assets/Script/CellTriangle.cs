@@ -11,7 +11,6 @@ public class CellTriangle
     Transform transform;
     LiverCell cell;
 
-    //private List<Vector3> verts;
 
     public CellTriangle( Material material, Transform transform, string tag)
     {
@@ -43,8 +42,8 @@ public class CellTriangle
         // Mesh pro kolize
         Mesh colliderMesh = new Mesh();
         colliderMesh.vertices = vertices;
-        // Pøidáme trojúhelník s invertovanými normálami pro kolize z obou stran
-        colliderMesh.triangles = new int[] { 0, 1, 2, 2, 1, 0 };
+        // Pøidáme trojúhelníkový collider s vrcholy 2,1,0, aby mìl collider normálu dovnitø pro správné fungování kolizí
+        colliderMesh.triangles = new int[] { 2, 1, 0 };
         colliderMesh.RecalculateNormals();
 
         MeshCollider coll = triangle.AddComponent<MeshCollider>();

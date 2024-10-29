@@ -14,6 +14,7 @@ public class BloodCell : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         var coll = GetComponent<Collider>();
         coll.isTrigger = false;
+        
 
     }
 
@@ -23,7 +24,7 @@ public class BloodCell : MonoBehaviour
         float xmove = ((float)random.Next(-100, 101)) / 100;
         float zmove = ((float)random.Next(-100, 101)) / 100;
 
-        rb.AddForce(new Vector3(xmove, 4f, zmove), ForceMode.VelocityChange);
+        rb.AddForce(new Vector3(xmove, 3f, zmove), ForceMode.VelocityChange);
         rb.useGravity = false;
 
     }
@@ -42,27 +43,26 @@ public class BloodCell : MonoBehaviour
     {
 
     }
-    
+
     private void OnCollisionEnter(Collision collision)
     {
+
+
         
-        if (collision.gameObject.CompareTag("Vein"))
-        {
+            ContactPoint contact = collision.contacts[0];
+            Vector3 normal = contact.normal;
+            Vector3 dopadovyVektor = -collision.relativeVelocity;
+
+            if (Vector3.Dot(normal, dopadovyVektor) < 0)
             {
-                ContactPoint contact = collision.contacts[0];
-                Vector3 normal = contact.normal;
-                Vector3 dopadovyVektor = -collision.relativeVelocity;
-
-                if (Vector3.Dot(normal, dopadovyVektor) <  0)
-                {
-                    normal = -normal;
-                }
-
-                Vector3 odrazenyVektor = Vector3.Reflect(dopadovyVektor, normal);
-
-                rb.velocity = odrazenyVektor;
+                normal = -normal;
             }
-        }
+
+            Vector3 odrazenyVektor = Vector3.Reflect(dopadovyVektor, normal);
+
+            rb.velocity = odrazenyVektor;
+        
+
 
         bounces++;
         if (bounces == 5)
@@ -70,8 +70,8 @@ public class BloodCell : MonoBehaviour
             //!!!!!! upravit pro pøemístìní v žilách
             // this.transform.position = Vector3.zero;
         }
+
     }
-    
     private void OnTriggerEnter(Collider other)
     {
     }
