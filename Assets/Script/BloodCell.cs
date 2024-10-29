@@ -36,8 +36,6 @@ public class BloodCell : MonoBehaviour
     public void SetPosition(Vector3 position)
     {
         this.transform.position = position;
-
-        this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     public void SetAlcohol(int alc)
@@ -51,31 +49,20 @@ public class BloodCell : MonoBehaviour
         if (collision.gameObject.CompareTag("Vein"))
         {
             {
-                // Získání kontaktního bodu
                 ContactPoint contact = collision.contacts[0];
-
-                // Získání normály povrchu
                 Vector3 normal = contact.normal;
+                Vector3 dopadovyVektor = -collision.relativeVelocity;
 
-                // Získání dopadového vektoru (inverzní smìr rychlosti objektu)
-                Vector3 dopadovyVektor = -collision.relativeVelocity.normalized;
-               // Vector3 dopadovyVektor = -rb.velocity;
-
-                // Zkontroluj orientaci normály pomocí skalárního souèinu
                 if (Vector3.Dot(normal, dopadovyVektor) <  0)
                 {
-                    // Normála je špatnì orientovaná, otoè ji
                     normal = -normal;
                 }
 
-                // Nyní máš vždy správnì orientovanou normálu
-                Vector3 odrazenyVektor =  Vector3.Reflect(dopadovyVektor, normal);
+                Vector3 odrazenyVektor = Vector3.Reflect(dopadovyVektor, normal);
 
                 rb.velocity = odrazenyVektor;
             }
         }
-        
-
 
         bounces++;
         if (bounces == 5)
@@ -83,16 +70,11 @@ public class BloodCell : MonoBehaviour
             //!!!!!! upravit pro pøemístìní v žilách
             // this.transform.position = Vector3.zero;
         }
-        
     }
     
     private void OnTriggerEnter(Collider other)
     {
-       
-
-
     }
-
 
     private void TransferProperties()
     {
@@ -102,6 +84,5 @@ public class BloodCell : MonoBehaviour
         {
             //sphere.gameObject.IsDestroyed();
         }
-
     }
 }
