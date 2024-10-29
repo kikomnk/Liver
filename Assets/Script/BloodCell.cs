@@ -69,7 +69,7 @@ public class BloodCell : MonoBehaviour
                 }
 
                 // Nyní máš vždy správnì orientovanou normálu
-                Vector3 odrazenyVektor = new Vector3(0, 0, 0);// Vector3.Reflect(dopadovyVektor, normal);
+                Vector3 odrazenyVektor =  Vector3.Reflect(dopadovyVektor, normal);
 
                 rb.velocity = odrazenyVektor;
             }

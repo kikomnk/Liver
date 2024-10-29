@@ -42,6 +42,7 @@ public class CellTriangle
 
 
 
+
         var body = triangle.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
