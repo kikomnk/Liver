@@ -27,7 +27,8 @@ public class CellTriangle
     {
         GameObject triangle = new GameObject("Triangle");
         triangle.transform.SetParent(transform);
-        
+
+        // Mesh pro renderování
         Mesh mesh = new Mesh();
         mesh.vertices = vertices;
         mesh.triangles = new int[] { 0, 1, 2 };
@@ -37,26 +38,33 @@ public class CellTriangle
         meshFilter.mesh = mesh;
 
         MeshRenderer meshRenderer = triangle.AddComponent<MeshRenderer>();
+        meshRenderer.material = material;
+
+        // Mesh pro kolize
+        Mesh colliderMesh = new Mesh();
+        colliderMesh.vertices = vertices;
+        // Pøidáme trojúhelník s invertovanými normálami pro kolize z obou stran
+        colliderMesh.triangles = new int[] { 0, 1, 2, 2, 1, 0 };
+        colliderMesh.RecalculateNormals();
 
         MeshCollider coll = triangle.AddComponent<MeshCollider>();
+        coll.sharedMesh = colliderMesh;
+        // Ujistíme se, že collider není konvexní
+        coll.convex = false;
 
-
-
-        var body = triangle.AddComponent<Rigidbody>();
+        Rigidbody body = triangle.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
-        meshRenderer.material = material;
-        
-
-        if (tag == "Lobe" )
+        if (tag == "Lobe")
         {
             triangle.tag = "Cell";
-            // setting triangle to another layer for collision handling
             triangle.layer = 3;
-            
-
         }
-        else { triangle.tag = "Vein"; }
+        else
+        {
+            triangle.tag = "Vein";
+        }
+
         cell.SetTriangle(triangle);
     }
 }
