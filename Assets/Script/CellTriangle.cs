@@ -40,6 +40,8 @@ public class CellTriangle
 
         MeshCollider coll = triangle.AddComponent<MeshCollider>();
 
+
+
         var body = triangle.AddComponent<Rigidbody>();
         body.isKinematic = true;
 
@@ -49,22 +51,12 @@ public class CellTriangle
         if (tag == "Lobe" )
         {
             triangle.tag = "Cell";
+            // setting triangle to another layer for collision handling
+            triangle.layer = 3;
+            
 
         }
         else { triangle.tag = "Vein"; }
         cell.SetTriangle(triangle);
     }
-    public void RemoveTriangleFromScene(LiverCell cell)
-    {
-        // GameObject.Destroy(cell.GetTriangle());
-      //  cell.SetTriangleMaterial(material);
-
-    }
-
-    /*
-    private GameObject FindTriangle(Vector3[] vertices) 
-    {
-        foreach (GameObject triangle in Liver.LeftLobe.hepatotyteCells[1].trian)
-    }
-    */
 }

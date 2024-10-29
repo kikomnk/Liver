@@ -28,11 +28,11 @@ public class DisplayText : MonoBehaviour
         {
             displayText.text = "Játra: " + "\n  ";
             displayText.text += "Dny: " + Liver.GetAge() + " \n  ";
-            displayText.text += "Okyslyèení: " + Liver.GetOxygen().ToString() + "\n  ";
+            displayText.text += "Okyslièení: " + Liver.GetOxygen().ToString() + "\n  ";
             displayText.text += "Poèet hepatocytù: " + Liver.GetCells(LiverCell.CellType.HEPATOCYTE).Count + "\n  ";
             displayText.text += "Poèet ztuènìných bunìk: " + Liver.GetCells(LiverCell.CellType.FAT).Count + "\n  ";
-            displayText.text += "Poèet poškozených buòek: " + Liver.GetCells(LiverCell.CellType.DAMAGEDHEPATOCYTE).Count  + "\n  ";
-            displayText.text += "Poèet buòìk fibrózy: " + Liver.GetCells(LiverCell.CellType.FIBROSIS).Count + "\n  ";
+            displayText.text += "Poèet poškozených bunìk: " + Liver.GetCells(LiverCell.CellType.DAMAGEDHEPATOCYTE).Count  + "\n  ";
+            displayText.text += "Poèet bunìk fibrózy: " + Liver.GetCells(LiverCell.CellType.FIBROSIS).Count + "\n  ";
             displayText.text += "Poèet bunìk cirhózy: " + Liver.GetCells(LiverCell.CellType.CIRHOSIS).Count  + "\n  ";
         }
     }

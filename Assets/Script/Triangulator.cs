@@ -74,7 +74,7 @@ public class Triangulator : MonoBehaviour
         }
         return meshTriangleVertices;
 
-        // Zrušení pùvodního meshe
+       
 
     }
     // pøi startu Aplikace

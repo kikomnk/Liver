@@ -13,7 +13,7 @@ public class BloodCell : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         var coll = GetComponent<Collider>();
-        coll.isTrigger = true;
+        coll.isTrigger = false;
 
     }
 
@@ -26,8 +26,6 @@ public class BloodCell : MonoBehaviour
         rb.AddForce(new Vector3(xmove, 4f, zmove), ForceMode.VelocityChange);
         rb.useGravity = false;
 
-        var renderer = this.GetComponent<Renderer>();
-        renderer.material = Resources.Load("Materials/Blood") as Material;
     }
 
     private void Update()
@@ -46,32 +44,53 @@ public class BloodCell : MonoBehaviour
     {
 
     }
-
+    
     private void OnCollisionEnter(Collision collision)
     {
-           
         
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Vein"))
+        if (collision.gameObject.CompareTag("Vein"))
         {
-            
-            float speed = velocity.magnitude;
-            Vector3 direction = (other.transform.position - this.transform.position ).normalized;
-            rb.velocity = direction * speed;
-            
-            // TransferProperties();
-        }
+            {
+                // Získání kontaktního bodu
+                ContactPoint contact = collision.contacts[0];
 
+                // Získání normály povrchu
+                Vector3 normal = contact.normal;
+
+                // Získání dopadového vektoru (inverzní smìr rychlosti objektu)
+                Vector3 dopadovyVektor = -collision.relativeVelocity.normalized;
+               // Vector3 dopadovyVektor = -rb.velocity;
+
+                // Zkontroluj orientaci normály pomocí skalárního souèinu
+                if (Vector3.Dot(normal, dopadovyVektor) <  0)
+                {
+                    // Normála je špatnì orientovaná, otoè ji
+                    normal = -normal;
+                }
+
+                // Nyní máš vždy správnì orientovanou normálu
+                Vector3 odrazenyVektor = new Vector3(0, 0, 0);// Vector3.Reflect(dopadovyVektor, normal);
+
+                rb.velocity = odrazenyVektor;
+            }
+        }
         
+
+
         bounces++;
         if (bounces == 5)
-        { 
+        {
             //!!!!!! upravit pro pøemístìní v žilách
-           // this.transform.position = Vector3.zero;
+            // this.transform.position = Vector3.zero;
         }
+        
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+       
+
+
     }
 
 
